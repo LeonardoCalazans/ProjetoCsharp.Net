@@ -1,0 +1,76 @@
+﻿@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <h5>Seja bem vindo ao Sistema!</h5>
+    </div>
+    <div class="col-md-6 text-right">
+        <a href="/Agenda/GerarRelatorio" class="btn btn-primary btn-sm">
+            Gerar Relatório de Compromissos
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div id="grafico"></div>
+    </div>
+</div>
+
+<br />
+
+@section scripts{
+    <!-- CDN -> Preciso da referência das bibliotecas Javascript do HigCharts -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script>
+        //iniciando o jquery quando a página for carregada
+        $(document).ready(function () {
+            //chamada para o controller
+            $.ajax({
+                type: 'POST',
+                url: '/Agenda/ObterDadosGrafico',
+                success: function (data) {
+                    console.log(data);
+                    //montando o gráfico do highcharts
+                    var array = [];
+                    for (var i = 0; i < data.length; i++) {
+                        array.push([
+                            data[i].name, data[i].data[0]
+                        ]);
+                    }
+                    new Highcharts.Chart({
+                        chart: {
+                            type: 'pie',
+                            renderTo: 'grafico'
+                        },
+                        title: {
+                            verticalAlign: 'middle',
+                            floating: true,
+                            text: 'Agenda por Categoria'
+                        },
+                        plotOptions: {
+                            pie: {
+                                innerSize: '75%',
+                                dataLabels: {
+                                    enabled: false
+                                },
+                                showInLegend: true
+                            }
+                        },
+                        exporting: { enabled: false },
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            data: array
+                        }]
+                    });
+                }
+            })
+        })
+    </script>
+} 

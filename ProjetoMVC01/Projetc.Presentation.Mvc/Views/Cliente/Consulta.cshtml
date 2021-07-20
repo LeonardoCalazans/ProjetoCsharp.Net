@@ -1,0 +1,67 @@
+﻿@model List<Project.Repository.Entities.Cliente>
+@{
+    ViewData["Title"] = "Consulta";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h5>Consulta de Clientes</h5>
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-row">
+                <div class="col">
+                    <input name="nome" type="text" class="form-control"
+                           placeholder="Informe o nome do cliente"
+                           value="@TempData["Nome"]"
+                           autocomplete="on">
+                </div>
+                <br />
+                <div class="col">
+                    <input type="submit" value="Pesquisar Clientes"
+                           class="btn btn-secondary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<br />
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Nome do Cliente</th>
+            <th>Email</th>
+            <th>CPF</th>
+            <th>Dependentes</th>
+            <th>Operações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Nome</td>
+                <td>@item.Email</td>
+                <td>@item.Cpf</td>
+                <td><td>
+                
+                    <a href="/Cliente/Edicao?id=@item.IdCliente"
+                       class="btn btn-primary btn-sm">
+                        Atualizar
+                    </a>
+                    <a href="/Cliente/Exclusao?id=@item.IdCliente"
+                       onclick="return confirm('Deseja realmente excluir o Cliente @item.Nome ?');"
+                       class="btn btn-danger btn-sm">
+                        Excluir
+                    </a>
+                
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5">Quantidade de clientes:  @Model.Count()</td>
+        </tr>
+    </tfoot>
+</table>

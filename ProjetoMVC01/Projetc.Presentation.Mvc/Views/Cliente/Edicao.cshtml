@@ -1,0 +1,40 @@
+﻿@model Projetc.Presentation.Mvc.Models.ClienteEdicaoModel
+
+@{
+    ViewData["Title"] = "Edicao";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h5>Atualização de Cliente</h5>
+@using (Html.BeginForm())
+{
+    <!-- campo oculto -->
+    @Html.HiddenFor(model => model.IdCliente)
+
+    <label>Nome do Cliente:</label>
+    @Html.TextBoxFor(model => model.Nome,
+    new
+        {
+    @class = "form-control col-md-4",
+    @placeholder = "Digite aqui"
+    })
+    <br />
+    <label>Email:</label>
+    @Html.TextBoxFor(model => model.Email,
+    new
+    {
+        @class = "form-control col-md-4",
+        @placeholder = "Digite aqui"
+    })
+    <br />
+    <label>CPF:</label>
+    @Html.TextBoxFor(model => model.Cpf,
+    new
+    {
+        @class = "form-control col-md-4",
+        @placeholder = "Digite aqui"
+    })
+    <br />
+    <input type="submit" class="btn btn-success"
+           value="Salvar alterações" />
+}

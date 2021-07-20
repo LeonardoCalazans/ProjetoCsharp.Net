@@ -1,0 +1,123 @@
+﻿@model List<Projeto.Infra.Data.Entities.Compromisso>
+
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h5>Consulta de Compromissos</h5>
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-3">
+            <label>Data de:</label>
+            <input type="date" name="DataMin" id="DataMin" class="form-control"
+                   value="@TempData["DataMin"]" @(TempData["ExibirTodos"] != null ? "disabled" : string.Empty)/>
+        </div>
+        <div class="col-md-3">
+            <label>Até:</label>
+            <input type="date" name="DataMax" id="DataMax" class="form-control"
+                   value="@TempData["DataMax"]" @(TempData["ExibirTodos"] != null ? "disabled" : string.Empty)/>
+        </div>
+        <div class="col-md-6">
+            <br />
+            <div class="mt-2 d-flex justify-content-center">
+                <input type="checkbox" class="btn-check" style="opacity:0" name="ExibirTodos" id="ExibirTodos" value="1" checked="@TempData["ExibirTodos"]"/>
+                <label class="btn btn-primary " for="ExibirTodos">Exibir todos os compromissos</label>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <input type="submit" value="Pesquisar Compromissos"
+                   class="btn btn-sm btn-success" />
+        </div>
+    </div>
+}
+
+<br />
+
+@if (Model != null)
+{
+    if (Model.Count == 0)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Nenhum compromisso foi encontrado para o período informado.</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    else
+    {
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Título do Compromisso</th>
+                    <th>Data/Hora de Início</th>
+                    <th>Data/Hora de Término</th>
+                    <th>Categoria</th>
+                    <th>Operações</th>
+                </tr>
+            </thead>
+            <tbody> 
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Titulo</td>
+                        <td>
+                            @item.DataInicio.ToString("dd/MM/yyyy") às
+                            @item.HoraInicio.ToString(@"hh\:mm")
+                        </td>
+                        <td>
+                            @item.DataFim.ToString("dd/MM/yyyy") às
+                            @item.HoraFim.ToString(@"hh\:mm")
+                        </td>
+                        <td>
+                            @item.Categoria.ToString()
+                        </td>
+                        <td>
+                            <a href="/Agenda/EdicaoCompromisso?id=@item.IdCompromisso"
+                               class="btn btn-sm btn-primary">
+                                Atualizar
+                            </a>
+                            <a href="/Agenda/ExclusaoCompromisso?id=@item.IdCompromisso"
+                               onclick="return confirm('Deseja realmente excluir este registro?');"
+                               class="btn btn-sm btn-danger">
+                                Excluir
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5">
+                        Quantidade de compromissos: @Model.Count
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    }
+}
+@section scripts{ 
+<script>
+    $(document).ready(function () {
+        $("#ExibirTodos").click(function () {
+            if ($(this).is(':checked')) {
+                $('label').last().removeClass(' btn-outline-primary');
+                $('label').last().addClass('  btn-primary');
+                $('#DataMin').prop('disabled', true);
+                $('#DataMax').prop('disabled', true);
+                $('#DataMax').val('');
+                $('#DataMin').val('');
+            } else {
+                $('label').last().addClass(' btn-outline-primary');
+                $('label').last().removeClass(' btn-primary');
+                $('#DataMin').prop('disabled', false);
+                $('#DataMax').prop('disabled', false);
+            }
+        })
+    })
+</script>
+}

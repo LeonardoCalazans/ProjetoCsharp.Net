@@ -1,0 +1,117 @@
+﻿@model Projeto.Presentation.Mvc.Models.CompromissoEdicaoModel
+@using Projeto.Infra.Data.Enums 
+
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h5>Edição de Compromisso</h5>
+
+@using (Html.BeginForm())
+{
+    <!-- campo oculto -->
+    @Html.HiddenFor(model => model.IdCompromisso)
+
+    <div class="row">
+        <div class="col-md-6">
+
+            <label>Título do Compromisso:</label>
+            @Html.TextBoxFor(model => model.Titulo,
+             new
+             {
+                 @class = "form-control",
+                 @placeholder = "Digite aqui"
+             })
+            <span class="text-danger">
+                @Html.ValidationMessageFor(model => model.Titulo)
+            </span>
+            <br />
+
+            <label>Categoria do Compromisso:</label>
+            @Html.DropDownListFor(model => model.Categoria,
+                Html.GetEnumSelectList(typeof(Categoria)),
+                "Escolha uma opção",
+             new
+             {
+                 @class = "form-control"
+             })
+            <span class="text-danger">
+                @Html.ValidationMessageFor(model => model.Categoria)
+            </span>
+            <br />
+
+            <label>Descrição do Compromisso:</label>
+            @Html.TextAreaFor(model => model.Descricao,
+             new
+             {
+                 @class = "form-control",
+                 @placeholder = "Digite aqui"
+             })
+            <span class="text-danger">
+                @Html.ValidationMessageFor(model => model.Descricao)
+            </span>
+            <br />
+
+            <input type="submit" value="Salvar Alterações"
+                   class="btn btn-success btn-sm" />
+
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Data de Início:</label>
+                    @Html.TextBoxFor(model => model.DataInicio,
+                     new
+                     {
+                         @class = "form-control"
+                     })
+                    <span class="text-danger">
+                        @Html.ValidationMessageFor(model => model.DataInicio)
+                    </span>
+                    <br />
+                </div>
+                <div class="col-md-6">
+                    <label>Hora de Início:</label>
+                    @Html.TextBoxFor(model => model.HoraInicio,
+                     new
+                     {
+                         @class = "form-control",
+                         @placeholder = "00:00"
+                     })
+                    <span class="text-danger">
+                        @Html.ValidationMessageFor(model => model.HoraInicio)
+                    </span>
+                    <br />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Data de Término:</label>
+                    @Html.TextBoxFor(model => model.DataFim,
+                     new
+                     {
+                         @class = "form-control"
+                     })
+                    <span class="text-danger">
+                        @Html.ValidationMessageFor(model => model.DataFim)
+                    </span>
+                    <br />
+                </div>
+                <div class="col-md-6">
+                    <label>Hora de Término:</label>
+                    @Html.TextBoxFor(model => model.HoraFim,
+                     new
+                     {
+                         @class = "form-control",
+                         @placeholder = "00:00"
+                     })
+                    <span class="text-danger">
+                        @Html.ValidationMessageFor(model => model.HoraFim)
+                    </span>
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

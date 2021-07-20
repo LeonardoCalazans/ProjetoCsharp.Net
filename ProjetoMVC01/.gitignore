@@ -1,0 +1,31 @@
+# User-specific files
+*.suo
+*.user
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+[Bb]in/
+[Oo]bj/
+# build folder is nowadays used for build scripts and should not be ignored
+#build/
+*.v2
+.vs/ProjetoEstoque/v16/.suo
+Projeto.Presentation.Mvc/appsettings.json
+*.cache
+.vs/ProjetoEstoque/v16/.suo
+Projeto.Presentation.Mvc/appsettings.json
+Projeto.Presentation.Mvc/obj/Debug/netcoreapp3.1/Projeto.Presentation.Mvc.csprojAssemblyReference.cache
+*.cache
+*.v2
+.vs/ProjetoEstoque/v16/.suo
+Projeto.Presentation.Mvc/appsettings.json
+*.cache
+*.cache
+.vs/ProjetoEstoque/DesignTimeBuild/.dtbcache.v2
+.vs/ProjetoEstoque/v16/.suo
+Projeto.Presentation.Mvc/appsettings.json
+Projeto.Presentation.Mvc/obj/Debug/netcoreapp3.1/Projeto.Presentation.Mvc.csprojAssemblyReference.cache
+Projeto.Repository/obj/Debug/netcoreapp3.1/Projeto.Repository.csprojAssemblyReference.cache
